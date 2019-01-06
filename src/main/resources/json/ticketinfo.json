@@ -1,0 +1,71 @@
+{  
+   "ticket":{  
+      "createdAt":"2018-08-01T18:30:00.000+0000",
+      "updatedAt":"2018-08-01T18:30:00.000+0000",
+      "active":"Y",
+      "id":1,
+      "createdBy":"cust1",
+      "description":"AC not working",
+      "deviceId":"123",
+      "deviceLocation":"WAKAD",
+      "status":"INPROGRESS",
+      "assignedTo":null,
+      "visitTime":null,
+      "visitDate":null,
+      "type":null,
+      "updatedBy":null,
+      "companyid":342432
+   },
+   "productInfos":[  
+      {  
+         "barcodeId":"1",
+         "product":{  
+            "createdAt":"2012-05-04T18:30:00.000+0000",
+            "updatedAt":"2012-05-04T18:30:00.000+0000",
+            "active":"Y",
+            "id":1,
+            "productName":"SMART",
+            "productBrand":"LG",
+            "productType":"Electronics",
+            "category":"AC",
+            "subCategory":"SPLIT",
+            "companyid":"123",
+            "comments":"good product"
+         },
+         "checkList":{  
+            "checkListId":1,
+            "checkListName":"AC Checklist",
+            "active":"Y",
+            "companyId":"123",
+            "comments":"Use for AC",
+            "tasks":[  
+               {  
+                  "id":1,
+                  "checklistid":1,
+                  "desc":"Check Adapter",
+                  "status":null,
+                  "comment":null,
+                  "checklistId":1
+               },
+               {  
+                  "id":2,
+                  "checklistid":1,
+                  "desc":"Check GAS",
+                  "status":null,
+                  "comment":null,
+                  "checklistId":1
+               },
+               {  
+                  "id":3,
+                  "checklistid":1,
+                  "desc":"Check Condencer",
+                  "status":null,
+                  "comment":null,
+                  "checklistId":1
+               }
+            ]
+         },
+         "barcodePart":null
+      }
+   ]
+}

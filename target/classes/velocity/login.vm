@@ -1,0 +1,19 @@
+<html>
+
+
+<div>
+  
+          <span class="card-title">Welcome to Field Serve</span>
+          <p>Dear ${firstName} ${lastName}</p>
+        <h3>      
+         Your Username: ${username}</br>
+		Your Password: ${password}</br>
+		</h3>
+		Thanks
+      
+</div>
+ 
+
+
+
+<html>
