@@ -37,7 +37,9 @@ public class SesssionFilter implements Filter{
 		HttpServletResponse httpresponse = (HttpServletResponse) response;
 		
 		
-		if(httprequest.getRequestURI().contains("validelogin") || httprequest.getRequestURI().contains("logout")){
+		if(httprequest.getRequestURI().contains("validelogin") 
+				|| httprequest.getRequestURI().contains("logout")
+				|| httprequest.getRequestURI().contains("profile")){
 			chain.doFilter(httprequest, response);
 			return;
 		}
