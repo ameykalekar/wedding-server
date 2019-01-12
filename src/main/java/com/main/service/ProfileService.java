@@ -1,5 +1,8 @@
 package com.main.service;
 
+import java.io.FileOutputStream;
+
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,18 @@ public class ProfileService {
 	
 	public void insertProfile(ProfileVo profileVo){
 		
+		try {
+			if(profileVo.getPicture1()!=null){
+			FileOutputStream imageOutFile = new FileOutputStream(
+					"C:\\Users\\amayk\\images\\test.jpg");
+			imageOutFile.write(Base64.decodeBase64(profileVo.getPicture1()));
+
+			imageOutFile.close();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		repository.save(profileVo.getEntity());
 		
 	}

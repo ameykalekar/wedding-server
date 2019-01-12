@@ -75,7 +75,7 @@ public class ProfileEntity {
 	@Column(length=10)
 	private String drinking;
 	
-	@Column(length=10)
+	@Column(length=20)
 	private String smoking;
 	
 	@Column(length=100)
@@ -130,6 +130,14 @@ public class ProfileEntity {
 	@Column(length=500)
 	private String aboutMe;
 	
+	@Column(length=12)
+	private String contactNumber;
+	
+	@Column(length=50)
+	private String email;
+	
+	@Column(length=10)
+	private String gender;
 
 	public long getId() {
 		return id;
@@ -267,7 +275,7 @@ public class ProfileEntity {
 		this.occupation = occupation;
 	}
 
-	public int getAnnualIncome() {
+	public Integer getAnnualIncome() {
 		return annualIncome;
 	}
 
@@ -457,6 +465,30 @@ public class ProfileEntity {
 
 	public void setAboutMe(String aboutMe) {
 		this.aboutMe = aboutMe;
+	}
+
+	public String getContactNumber() {
+		return contactNumber;
+	}
+
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	

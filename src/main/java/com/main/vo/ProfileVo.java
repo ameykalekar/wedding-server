@@ -4,6 +4,7 @@ import com.main.entity.ProfileEntity;
 
 public class ProfileVo {
 
+	private long id;
 	private String firstName;
 	private String lastName;
 	private String dateOfBirth;
@@ -20,7 +21,7 @@ public class ProfileVo {
 	private String collegeName;
 	private String schoolName;
 	private String occupation;
-	private String annualIncome;
+	private Integer annualIncome;
 	private String companyName;
 	private String drinking;
 	private String smoking;
@@ -35,7 +36,7 @@ public class ProfileVo {
 	private String familyType;
 	private String familyValues;
 	private String livingWithParents;
-	
+	private String contactNumber;
 	private String address;
 	private String homeAddress;
 	private String dietaryHabits;
@@ -45,6 +46,10 @@ public class ProfileVo {
 	private String bloodGroup;
 	private String maternalGothra;
 	private String aboutMe;
+	
+	private String picture1;
+	private String email;
+	private String gender;
 	
 	public String getFirstName() {
 		return firstName;
@@ -137,10 +142,10 @@ public class ProfileVo {
 	public void setOccupation(String occupation) {
 		this.occupation = occupation;
 	}
-	public String getAnnualIncome() {
+	public Integer getAnnualIncome() {
 		return annualIncome;
 	}
-	public void setAnnualIncome(String annualIncome) {
+	public void setAnnualIncome(Integer annualIncome) {
 		this.annualIncome = annualIncome;
 	}
 	public String getCompanyName() {
@@ -287,6 +292,14 @@ public class ProfileVo {
 	public void setAboutMe(String aboutMe) {
 		this.aboutMe = aboutMe;
 	}
+	
+	public String getPicture1() {
+		return picture1;
+	}
+	public void setPicture1(String picture1) {
+		this.picture1 = picture1;
+	}
+	
 	@Override
 	public String toString() {
 		return "ProfileVo [firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth
@@ -310,7 +323,7 @@ public class ProfileVo {
 		ProfileVo vo = new ProfileVo();
 		vo.setFirstName(entity.getFirstName());
 		vo.setLastName(entity.getLastName());
-		vo.setAnnualIncome(entity.getAnnualIncome()+"");
+		vo.setAnnualIncome(entity.getAnnualIncome());
 		vo.setBodyType(entity.getBodyType());
 		vo.setCaste(entity.getCaste());
 		vo.setChallenged(entity.getChallenged());
@@ -343,13 +356,16 @@ public class ProfileVo {
 		vo.setAddress(entity.getAddress());
 		vo.setHomeAddress(entity.getHomeAddress());
 		vo.setDietaryHabits(entity.getDietaryHabits());
-		vo.setDrinking(entity.getDrinkingHabits());
-		vo.setSmoking(entity.getSmokingHabits());
+		vo.setDrinkingHabits(entity.getDrinkingHabits());
+		vo.setSmokingHabits(entity.getSmokingHabits());
 		vo.setSkinType(entity.getSkinType());
 		vo.setBloodGroup(entity.getBloodGroup());
 		vo.setMaternalGothra(entity.getMaternalGothra());
 		vo.setAboutMe(entity.getAboutMe());
-		
+		vo.setContactNumber(entity.getContactNumber());
+		vo.setEmail(entity.getEmail());
+		vo.setGender(entity.getGender());
+		vo.setId(entity.getId());
 		return vo;
 	}
 
@@ -359,7 +375,7 @@ public class ProfileVo {
 		ProfileEntity entity = new ProfileEntity();
 		entity.setFirstName(firstName);
 		entity.setLastName(lastName);
-		entity.setAnnualIncome(Integer.valueOf(annualIncome));
+		entity.setAnnualIncome(annualIncome==null || annualIncome.equals("")? 0 : annualIncome);
 		entity.setBodyType(bodyType);
 		entity.setCaste(caste);
 		entity.setChallenged(challenged);
@@ -388,18 +404,45 @@ public class ProfileVo {
 		entity.setPlaceOfBirth(placeOfBirth);
 		entity.setReligion(religion);
 		entity.setSchoolName(schoolName);
-		entity.setSmoking(smoking);
 		entity.setAddress(address);
 		entity.setHomeAddress(homeAddress);
 		entity.setDietaryHabits(dietaryHabits);
-		entity.setDrinking(drinkingHabits);
-		entity.setSmoking(smokingHabits);
+		entity.setDrinkingHabits(drinkingHabits);
+		entity.setSmokingHabits(smokingHabits);
 		entity.setSkinType(skinType);
 		entity.setBloodGroup(bloodGroup);
 		entity.setMaternalGothra(maternalGothra);
 		entity.setAboutMe(aboutMe);
-		
+		entity.setContactNumber(contactNumber);
+		entity.setEmail(email);
+		entity.setGender(gender);
+		entity.setId(id);
 		return entity;
 	}
+	public String getContactNumber() {
+		return contactNumber;
+	}
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	
 }
