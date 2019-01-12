@@ -50,6 +50,12 @@ public class ProfileController {
 		profileService.insertProfile(profileVo);
 		return new ResponseEntity<ProfileVo>(profileVo,HttpStatus.OK);
 	}
+	@PostMapping("/api/search")
+	public ResponseEntity<ProfileVo> searchProfile(@RequestBody ProfileVo profileVo){
+		System.out.println(profileVo);
+		profileService.searchProfile(profileVo);
+		return new ResponseEntity<ProfileVo>(profileVo,HttpStatus.OK);
+	}
 	
 	
 }

@@ -52,4 +52,10 @@ public class ProfileService {
 		}
 
 	}
+	
+	public void searchProfile(ProfileVo profileVo) {
+
+		ProfileEntity entity = repository.save(profileVo.getEntity());
+		
+	}
 }
