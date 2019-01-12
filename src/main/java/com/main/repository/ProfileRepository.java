@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.main.entity.ProfileEntity;
 
-public interface ProfileRepository extends JpaRepository<ProfileEntity,Long> {
+public interface ProfileRepository extends JpaRepository<ProfileEntity,Long>,ProfileRepositoryCustom {
 
 }

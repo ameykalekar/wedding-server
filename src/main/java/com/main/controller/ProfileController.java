@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.main.entity.ProfileEntity;
 import com.main.service.ProfileService;
 import com.main.vo.ProfileVo;
 
@@ -51,10 +53,10 @@ public class ProfileController {
 		return new ResponseEntity<ProfileVo>(profileVo,HttpStatus.OK);
 	}
 	@PostMapping("/api/search")
-	public ResponseEntity<ProfileVo> searchProfile(@RequestBody ProfileVo profileVo){
+	public ResponseEntity<List<ProfileEntity>> searchProfile(@RequestBody ProfileVo profileVo){
 		System.out.println(profileVo);
-		profileService.searchProfile(profileVo);
-		return new ResponseEntity<ProfileVo>(profileVo,HttpStatus.OK);
+		
+		return new ResponseEntity<List<ProfileEntity>>(profileService.searchProfile(profileVo),HttpStatus.OK);
 	}
 	
 	

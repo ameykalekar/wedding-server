@@ -2,6 +2,7 @@ package com.main.service;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,9 +54,9 @@ public class ProfileService {
 
 	}
 	
-	public void searchProfile(ProfileVo profileVo) {
+	public List<ProfileEntity>  searchProfile(ProfileVo profileVo) {
 
-		ProfileEntity entity = repository.save(profileVo.getEntity());
+		return  repository.searchProfile(profileVo);
 		
 	}
 }
