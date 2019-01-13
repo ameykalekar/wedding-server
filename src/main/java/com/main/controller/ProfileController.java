@@ -1,9 +1,13 @@
 package com.main.controller;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -20,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.main.entity.ProfileEntity;
+import com.main.app.constants.ApplicationConstants;
+import com.main.entity.Login;
 import com.main.service.ProfileService;
 import com.main.vo.ProfileVo;
 
@@ -33,24 +39,54 @@ public class ProfileController {
 	
 	
 	@RequestMapping("/api/profile/{id}")
-	public ResponseEntity<ProfileVo> getProfile(@PathVariable("id") String id){
+	public ResponseEntity<ProfileVo> getProfile(@PathVariable("id") String id,HttpServletRequest request){
 		
-		System.out.println("profile id ::" + id);
-		
+		Login login = getUserLoginFromSession(request);
+		if(login!=null && login.getUserid().equals(id)){
 		return new ResponseEntity<ProfileVo>(profileService.getProfile(id),HttpStatus.OK);
+		}else{
+			//TODO: TO pass view to show to other people.
+			return new ResponseEntity<ProfileVo>(profileService.getProfile(id),HttpStatus.OK);	
+		}
 	}
 	
-	@GetMapping(value = "/api/profile/getProfileImage",produces = MediaType.IMAGE_JPEG_VALUE)
-	public @ResponseBody byte[] getImage() throws IOException {
-		FileInputStream imageOutFile = new FileInputStream("C:\\Users\\amayk\\images\\1.jpg");
-	    return IOUtils.toByteArray(imageOutFile);
+	@GetMapping(value = "/api/profile/getProfileImage/{id}",produces = MediaType.IMAGE_JPEG_VALUE)
+	public @ResponseBody byte[] getImage(@PathVariable("id") String id,HttpServletRequest request) throws IOException {
+		Login login = getUserLoginFromSession(request);
+		 
+		 
+		 if(login!=null){
+			 FileInputStream imageOutFile = new FileInputStream("C:\\Users\\amayk\\images\\"+id+"\\1.jpg");
+			 return IOUtils.toByteArray(imageOutFile);
+		 } else{
+			 return null;
+		 }
+	}
+
+	private Login getUserLoginFromSession(HttpServletRequest request) {
+		Function<HttpSession, Optional<HttpSession>> optionalSession = (session) ->  session!=null ? Optional.of(session) : Optional.empty();
+				
+		 Login login = optionalSession.andThen((optSession) -> {
+			if(optSession.get().getAttribute(ApplicationConstants.USER_INFO)!=null){
+				return (Login)optSession.get().getAttribute(ApplicationConstants.USER_INFO);
+			} else{
+				return null;
+			}
+		 }).apply(request.getSession(false));
+		return login;
 	}
 	
 	@PostMapping("/api/profile")
-	public ResponseEntity<ProfileVo> insertProfile(@RequestBody ProfileVo profileVo){
+	public ResponseEntity<ProfileVo> insertProfile(@RequestBody ProfileVo profileVo,HttpServletRequest request){
+		Login login = getUserLoginFromSession(request);
+		
+		if(login!=null && login.getUserid().equals(profileVo.getId())){
 		System.out.println(profileVo);
 		profileService.insertProfile(profileVo);
 		return new ResponseEntity<ProfileVo>(profileVo,HttpStatus.OK);
+		}else{
+			return new ResponseEntity<ProfileVo>(profileVo,HttpStatus.BAD_REQUEST);	
+		}
 	}
 	@PostMapping("/api/search")
 	public ResponseEntity<List<ProfileEntity>> searchProfile(@RequestBody ProfileVo profileVo){
@@ -60,6 +96,7 @@ public class ProfileController {
 		
 		return new ResponseEntity<List<ProfileEntity>>(profiles,HttpStatus.OK);
 	}
+	
 	
 	
 }

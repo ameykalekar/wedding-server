@@ -13,19 +13,10 @@ public class Login {
 	
 	@Id
 	@Column(name="USERNAME" ,length = 100)
-	protected String username;
+	protected String userid;
 	
 	@Column(name="PASSWORD")
 	protected String password;
-	
-	@Column(name="ROLE")
-	protected String role;
-	
-	@Column(name="COMPANYID")
-	protected long companyId;
-	
-	@Column(name="ACTIVE")
-	protected String  active;
 
 
 	
@@ -36,13 +27,11 @@ public class Login {
 	 * @param companyId
 	 * @param active
 	 */
-	public Login(String username, String password, String role, long companyId, String active) {
+	public Login(String username, String password) {
 		super();
-		this.username = username;
+		this.userid = username;
 		this.password = password;
-		this.role = role;
-		this.companyId = companyId;
-		this.active = active;
+		
 	}
 
 
@@ -59,15 +48,15 @@ public class Login {
 	/**
 	 * @return the username
 	 */
-	public String getUsername() {
-		return username;
+	public String getUserid() {
+		return userid;
 	}
 
 	/**
 	 * @param username the username to set
 	 */
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserid(String username) {
+		this.userid = username;
 	}
 
 	/**
@@ -83,56 +72,6 @@ public class Login {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	/**
-	 * @return the role
-	 */
-	public String getRole() {
-		return role;
-	}
-
-	/**
-	 * @param role the role to set
-	 */
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	/**
-	 * @return the companyId
-	 */
-	public long getCompanyId() {
-		return companyId;
-	}
-
-	/**
-	 * @param companyId the companyId to set
-	 */
-	public void setCompanyId(long companyId) {
-		this.companyId = companyId;
-	}
-
-	/**
-	 * @return the active
-	 */
-	public String getActive() {
-		return active;
-	}
-
-	/**
-	 * @param active the active to set
-	 */
-	public void setActive(String active) {
-		this.active = active;
-	}
-
-
-
-
-
-
-	
-
 	
 	
 }

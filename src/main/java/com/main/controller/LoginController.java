@@ -39,13 +39,13 @@ public class LoginController {
 	@Autowired
 	UserController usercontroller;
 	
-	@PostMapping("/api/login")
+	@PostMapping("/api/save")
 	public ResponseEntity<Login> save(@RequestBody Login login){ 
 		
-		System.out.println(login.getUsername());
+		System.out.println(login.getUserid());
 		loginRepository.save(login);
 		
-		Optional<Login> loginOptional= loginRepository.findById(login.getUsername());
+		Optional<Login> loginOptional= loginRepository.findById(login.getUserid());
 		System.out.println("Returning argument"+loginOptional.get());
 		if(loginOptional.isPresent())
 		{
@@ -64,21 +64,34 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/api/logout")
-	public String logout(HttpServletRequest request){ 
+	public  ResponseEntity<String> logout(HttpServletRequest request){ 
 		System.out.println("Logging out");
 		request.getSession().invalidate();
-		return "success";
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	
 	
-	@RequestMapping("/api/validelogin")
-	public ResponseEntity<LoginVO> validelogin (@RequestParam("username") String username, @RequestParam("password") String password,HttpServletRequest request){ 
+	@RequestMapping("/api/login")
+	public ResponseEntity<LoginVO> validelogin (@RequestBody Login login ,HttpServletRequest request){ 
 		
+		System.out.println(login);
 		System.out.println("session id is " +  request.getSession().getId());
-		String hashedPassword = passwordHelper.hashPassword(password);
-		Optional<Login> login= loginRepository.findById(username);
-		if (login.isPresent() && hashedPassword.equals(login.get().getPassword())) {
+		
+		//TODO:validate user and password 
+		
+		request.getSession().setAttribute(ApplicationConstants.USER_INFO, login);
+		
+		try {
+			Thread.currentThread().sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(HttpStatus.OK);
+		/*String hashedPassword = passwordHelper.hashPassword(login.getPassword());
+		Optional<Login> dbLogin= loginRepository.findById(login.getUserid());
+		if (dbLogin.isPresent() && hashedPassword.equals(dbLogin.get().getPassword())) {
 			LoginVO loginvo = new LoginVO();
 			loginvo.setUsername(login.get().getUsername());
 			loginvo.setRole(login.get().getRole());
@@ -91,7 +104,7 @@ public class LoginController {
 		}else
 		{
 			return new ResponseEntity<>(HttpStatus.OK);
-		}
+		}*/
 		
 	}
 	
