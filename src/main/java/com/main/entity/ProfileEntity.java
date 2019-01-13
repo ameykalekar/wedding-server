@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.main.vo.ProfileVo;
 
 @Entity
@@ -140,6 +142,7 @@ public class ProfileEntity {
 	private String gender;
 	
 	@Column(length=10)
+	@ColumnDefault("18")
 	private Integer age;
 
 	public long getId() {

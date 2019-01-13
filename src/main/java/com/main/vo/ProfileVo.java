@@ -51,6 +51,7 @@ public class ProfileVo {
 	private String email;
 	private String gender;
 	private Integer age;
+	private String ageRange;
 	
 	public String getFirstName() {
 		return firstName;
@@ -459,6 +460,18 @@ public class ProfileVo {
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	/**
+	 * @return the ageRange
+	 */
+	public String getAgeRange() {
+		return ageRange;
+	}
+	/**
+	 * @param ageRange the ageRange to set
+	 */
+	public void setAgeRange(String ageRange) {
+		this.ageRange = ageRange;
 	}
 	
 	

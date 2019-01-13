@@ -50,8 +50,8 @@ public class ProfileRepositoryImpl implements ProfileRepositoryCustom {
 	        predicates.add(cb.equal(book.get("highestDegree"), profileVo.getMarritalStatus()));
 	    }
 	    
-	    if (StringUtils.isNotBlank(profileVo.getAge().toString())) {
-	        predicates.add(cb.between(book.get("age"), profileVo.getAge().toString().split("-")[0], profileVo.getAge().toString().split("-")[1]));
+	    if (StringUtils.isNotBlank(profileVo.getAgeRange())) {
+	        predicates.add(cb.between(book.get("age"), profileVo.getAgeRange().toString().split("-")[0], profileVo.getAgeRange().toString().split("-")[1]));
 	    }
 	    cq.where(predicates.toArray(new Predicate[0]));
 	 
