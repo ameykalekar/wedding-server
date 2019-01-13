@@ -50,6 +50,7 @@ public class ProfileVo {
 	private String picture1;
 	private String email;
 	private String gender;
+	private Integer age;
 	
 	public String getFirstName() {
 		return firstName;
@@ -300,6 +301,20 @@ public class ProfileVo {
 		this.picture1 = picture1;
 	}
 	
+	
+	
+	/**
+	 * @return the age
+	 */
+	public Integer getAge() {
+		return age;
+	}
+	/**
+	 * @param age the age to set
+	 */
+	public void setAge(Integer age) {
+		this.age = age;
+	}
 	@Override
 	public String toString() {
 		return "ProfileVo [firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth
@@ -366,6 +381,7 @@ public class ProfileVo {
 		vo.setEmail(entity.getEmail());
 		vo.setGender(entity.getGender());
 		vo.setId(entity.getId());
+		vo.setAge(entity.getAge());
 		return vo;
 	}
 
@@ -417,6 +433,7 @@ public class ProfileVo {
 		entity.setEmail(email);
 		entity.setGender(gender);
 		entity.setId(id);
+		entity.setAge(age);
 		return entity;
 	}
 	public String getContactNumber() {

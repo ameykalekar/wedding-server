@@ -56,7 +56,9 @@ public class ProfileController {
 	public ResponseEntity<List<ProfileEntity>> searchProfile(@RequestBody ProfileVo profileVo){
 		System.out.println(profileVo);
 		
-		return new ResponseEntity<List<ProfileEntity>>(profileService.searchProfile(profileVo),HttpStatus.OK);
+		List<ProfileEntity> profiles=profileService.searchProfile(profileVo);
+		
+		return new ResponseEntity<List<ProfileEntity>>(profiles,HttpStatus.OK);
 	}
 	
 	

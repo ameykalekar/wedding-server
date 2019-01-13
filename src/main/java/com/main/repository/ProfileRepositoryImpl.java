@@ -9,6 +9,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.main.entity.ProfileEntity;
@@ -16,7 +18,8 @@ import com.main.vo.ProfileVo;
 
 @Repository
 public class ProfileRepositoryImpl implements ProfileRepositoryCustom {
-	  EntityManager em;
+	@Autowired  
+	EntityManager em;
 	@Override
 	public List<ProfileEntity> searchProfile(ProfileVo profileVo) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -25,11 +28,30 @@ public class ProfileRepositoryImpl implements ProfileRepositoryCustom {
 	    Root<ProfileEntity> book = cq.from(ProfileEntity.class);
 	    List<Predicate> predicates = new ArrayList<>();
 	     
-	    if (profileVo.getReligion() != null) {
+	    if (StringUtils.isNotBlank(profileVo.getGender())  ) {
+	        predicates.add(cb.equal(book.get("gender"), profileVo.getGender()));
+	    }
+	    if (StringUtils.isNotBlank(profileVo.getCaste())) {
+	        predicates.add(cb.equal(book.get("caste"), profileVo.getCaste()));
+	    }
+	    if (StringUtils.isNotBlank(profileVo.getReligion())) {
 	        predicates.add(cb.equal(book.get("religion"), profileVo.getReligion()));
 	    }
-	    if (profileVo.getCaste() != null) {
-	        predicates.add(cb.equal(book.get("caste"), profileVo.getCaste()));
+	    
+	    if (StringUtils.isNotBlank(profileVo.getAddress())) {
+	        predicates.add(cb.like(book.get("address"), "%"+profileVo.getAddress()+"%"));
+	    }
+	    
+	    if (StringUtils.isNotBlank(profileVo.getMarritalStatus())) {
+	        predicates.add(cb.equal(book.get("maritastatus"), profileVo.getMarritalStatus()));
+	    }
+	    
+	    if (StringUtils.isNotBlank(profileVo.getHighestDegree())) {
+	        predicates.add(cb.equal(book.get("highestDegree"), profileVo.getMarritalStatus()));
+	    }
+	    
+	    if (StringUtils.isNotBlank(profileVo.getAge().toString())) {
+	        predicates.add(cb.between(book.get("age"), profileVo.getAge().toString().split("-")[0], profileVo.getAge().toString().split("-")[1]));
 	    }
 	    cq.where(predicates.toArray(new Predicate[0]));
 	 
