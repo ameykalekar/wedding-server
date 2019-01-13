@@ -90,8 +90,7 @@ public class UserController {
 		
 		System.out.println("Geenerate Password" +password);
 
-		Login login = new Login(user.getUsername(), passwordhelper.hashPassword(password), user.getType(),
-				user.getCompanyid(), "Y");
+		Login login = new Login(user.getUsername(), passwordhelper.hashPassword(password));
 		logincontroller.save(login);
 		
 		System.out.println("sending email");
