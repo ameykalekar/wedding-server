@@ -88,14 +88,15 @@ public class ProfileController {
 			return new ResponseEntity<ProfileVo>(profileVo,HttpStatus.BAD_REQUEST);	
 		}
 	}
+
 	@PostMapping("/api/search")
 	public ResponseEntity<List<ProfileEntity>> searchProfile(@RequestBody ProfileVo profileVo){
 		System.out.println(profileVo);
-		
 		List<ProfileEntity> profiles=profileService.searchProfile(profileVo);
-		
 		return new ResponseEntity<List<ProfileEntity>>(profiles,HttpStatus.OK);
 	}
+	
+	
 	
 	
 	
