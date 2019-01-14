@@ -1,5 +1,6 @@
 package com.main.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
@@ -37,6 +38,12 @@ public class ProfileController {
 	private ProfileService profileService;
 	
 	
+	@RequestMapping("/api/viewprofile/{id}")
+	public ResponseEntity<ProfileVo> getViewProfile(@PathVariable("id") String id,HttpServletRequest request){
+		
+		return new ResponseEntity<ProfileVo>(profileService.getProfile(id),HttpStatus.OK);
+	}
+	
 	
 	@RequestMapping("/api/profile/{id}")
 	public ResponseEntity<ProfileVo> getProfile(@PathVariable("id") String id,HttpServletRequest request){
@@ -52,15 +59,21 @@ public class ProfileController {
 	
 	@GetMapping(value = "/api/profile/getProfileImage/{id}",produces = MediaType.IMAGE_JPEG_VALUE)
 	public @ResponseBody byte[] getImage(@PathVariable("id") String id,HttpServletRequest request) throws IOException {
-		Login login = getUserLoginFromSession(request);
-		 
-		 
-		 if(login!=null){
-			 FileInputStream imageOutFile = new FileInputStream("C:\\Users\\amayk\\images\\"+id+"\\1.jpg");
-			 return IOUtils.toByteArray(imageOutFile);
-		 } else{
-			 return null;
-		 }
+		File directory = new File(String.valueOf("C:\\Users\\amayk\\images\\"+id));
+		
+		if(directory.exists()){
+			FileInputStream imageOutFile = new FileInputStream("C:\\Users\\amayk\\images\\"+id+"\\1.jpg");
+			byte[] result = IOUtils.toByteArray(imageOutFile);
+			imageOutFile.close();
+			return result;
+		}else{
+			FileInputStream imageOutFile = new FileInputStream("C:\\Users\\amayk\\images\\default\\1.jpg");
+			byte[] result = IOUtils.toByteArray(imageOutFile);
+			imageOutFile.close();
+			return result;
+		}
+			 
+			
 	}
 
 	private Login getUserLoginFromSession(HttpServletRequest request) {
