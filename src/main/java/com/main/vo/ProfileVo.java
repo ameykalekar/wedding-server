@@ -52,6 +52,9 @@ public class ProfileVo {
 	private String gender;
 	private Integer age;
 	private String ageRange;
+	private Integer start =0 ;
+	private Integer maxLimit=100;
+
 	
 	public String getFirstName() {
 		return firstName;
@@ -473,6 +476,32 @@ public class ProfileVo {
 	public void setAgeRange(String ageRange) {
 		this.ageRange = ageRange;
 	}
+	/**
+	 * @return the start
+	 */
+	public Integer getStart() {
+		return start;
+	}
+	/**
+	 * @param start the start to set
+	 */
+	public void setStart(Integer start) {
+		this.start = start;
+	}
+	/**
+	 * @return the end
+	 */
+	public Integer getMaxLimit() {
+		return maxLimit;
+	}
+	/**
+	 * @param end the end to set
+	 */
+	public void setMaxLimit(Integer end) {
+		this.maxLimit = end;
+	}
+	
+	
 	
 	
 }

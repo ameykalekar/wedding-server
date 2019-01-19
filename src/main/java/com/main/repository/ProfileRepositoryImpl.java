@@ -54,8 +54,15 @@ public class ProfileRepositoryImpl implements ProfileRepositoryCustom {
 	        predicates.add(cb.between(book.get("age"), profileVo.getAgeRange().toString().split("-")[0], profileVo.getAgeRange().toString().split("-")[1]));
 	    }
 	    cq.where(predicates.toArray(new Predicate[0]));
-	 
-	    return em.createQuery(cq).getResultList();
+	    
+	try {
+		Thread.sleep(3000);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	    	return em.createQuery(cq).setFirstResult(profileVo.getStart()).setMaxResults(profileVo.getMaxLimit()).getResultList();
+	    
 	}
 
 }
