@@ -28,6 +28,7 @@ import com.main.entity.ProfileEntity;
 import com.main.app.constants.ApplicationConstants;
 import com.main.entity.Login;
 import com.main.service.ProfileService;
+import com.main.vo.PaymentRequest;
 import com.main.vo.ProfileVo;
 
 @RestController
@@ -110,7 +111,11 @@ public class ProfileController {
 	}
 	
 	
-	
+	@GetMapping(value = "/api/gethash")
+	public @ResponseBody String getImage(@RequestBody PaymentRequest paymentRequest,HttpServletRequest request) throws IOException {
+					 
+			return null;
+	}
 	
 	
 }
