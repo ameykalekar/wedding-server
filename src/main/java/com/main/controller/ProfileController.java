@@ -111,10 +111,15 @@ public class ProfileController {
 	}
 	
 	
-	@GetMapping(value = "/api/gethash")
-	public @ResponseBody String getImage(@RequestBody PaymentRequest paymentRequest,HttpServletRequest request) throws IOException {
+	@PostMapping(value = "/api/gethash")
+	public @ResponseBody ResponseEntity<PaymentRequest> getImage(@RequestBody PaymentRequest paymentRequest,HttpServletRequest request) throws IOException {
 					 
-			return null;
+			 
+					
+					PaymentRequest p=  profileService.generateHash(paymentRequest);
+			
+		return	new ResponseEntity<PaymentRequest>(p,HttpStatus.OK);
+			
 	}
 	
 	
