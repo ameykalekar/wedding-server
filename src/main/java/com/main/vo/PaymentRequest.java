@@ -10,8 +10,8 @@ public class PaymentRequest {
    private String  email;
    private String phone;
    private String   productinfo;
-   private String  surl= "";
-   private String  furl= "";
+   private String  surl= "https://sucess-url.in";
+   private String  furl= "https://fail-url.in";
    private String mode= "dropout";
 /**
  * @return the key

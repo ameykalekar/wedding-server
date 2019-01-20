@@ -101,16 +101,18 @@ public class ProfileService {
 	}
 
 	public PaymentRequest generateHash(PaymentRequest paymentRequest) {
-		String txnid = generateTxnID();
+		String txnid =generateTxnID();
 
 		String hashString = "";
 
 		String hash = "";
+		paymentRequest.setTxnid(txnid);
 
 		hashString = paymentRequest.getKey() + "|" + paymentRequest.getTxnid() + "|" + paymentRequest.getAmount() + "|"
 				+ paymentRequest.getProductinfo() + "|" + paymentRequest.getFirstname() + "|"
-				+ paymentRequest.getEmail() + "|" + "|||||||||||" + this.salt;
+				+ paymentRequest.getEmail() + "|" + "||||||||||" + this.salt;
 
+		System.out.println(hashString);
 		hash = hashCal("SHA-512", hashString);
 
 		paymentRequest.setHash(hash);
