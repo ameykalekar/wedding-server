@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.main.app.constants.ApplicationConstants;
 import com.main.entity.Login;
 import com.main.repository.LoginRepository;
+import com.main.repository.UserRepository;
 import com.main.service.PasswordHelper;
 import com.main.service.RoleFunctionService;
 import com.main.vo.ChangePasswordVo;
@@ -39,29 +40,6 @@ public class LoginController {
 	@Autowired
 	UserController usercontroller;
 	
-	@PostMapping("/api/save")
-	public ResponseEntity<Login> save(@RequestBody Login login){ 
-		
-		System.out.println(login.getUserid());
-		loginRepository.save(login);
-		
-		Optional<Login> loginOptional= loginRepository.findById(login.getUserid());
-		System.out.println("Returning argument"+loginOptional.get());
-		if(loginOptional.isPresent())
-		{
-		
-		
-		return new ResponseEntity<Login>(loginOptional.get(), HttpStatus.OK);
-		}else
-		{
-			return new ResponseEntity<>(HttpStatus.OK);
-		}
-	}
-	
-	@RequestMapping("/api/loginAll")
-	public List<Login> get(){ 
-		return loginRepository.findAll();
-	}
 	
 	@RequestMapping("/api/logout")
 	public  ResponseEntity<String> logout(HttpServletRequest request){ 
@@ -72,39 +50,40 @@ public class LoginController {
 	
 	
 	
-	@RequestMapping("/api/login")
-	public ResponseEntity<LoginVO> validelogin (@RequestBody Login login ,HttpServletRequest request){ 
+	static class User {
+		private String userid;
+		private String password;
 		
-		System.out.println(login);
-		System.out.println("session id is " +  request.getSession().getId());
-		
-		//TODO:validate user and password 
-		
-		request.getSession().setAttribute(ApplicationConstants.USER_INFO, login);
-		
-		try {
-			Thread.currentThread().sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		public String getUserid() {
+			return userid;
 		}
-		return new ResponseEntity<>(HttpStatus.OK);
-		/*String hashedPassword = passwordHelper.hashPassword(login.getPassword());
-		Optional<Login> dbLogin= loginRepository.findById(login.getUserid());
-		if (dbLogin.isPresent() && hashedPassword.equals(dbLogin.get().getPassword())) {
-			LoginVO loginvo = new LoginVO();
-			loginvo.setUsername(login.get().getUsername());
-			loginvo.setRole(login.get().getRole());
-			loginvo.setFunctions(roleFunctionService.getFunctionsForRole(login.get().getRole()));
-			loginvo.setCompanyId(login.get().getCompanyId());
-			loginvo.setUserinfo( (usercontroller.getUser(loginvo.getUsername())));
-			request.getSession().setAttribute(ApplicationConstants.USER_INFO, loginvo);
-			
-			return new ResponseEntity<>(loginvo, HttpStatus.OK);
-		}else
-		{
-			return new ResponseEntity<>(HttpStatus.OK);
-		}*/
+		public void setUserid(String username) {
+			this.userid = username;
+		}
+		public String getPassword() {
+			return password;
+		}
+		public void setPassword(String password) {
+			this.password = password;
+		}
+	}
+	
+	@Autowired
+	UserRepository userRepository;
+	
+	@RequestMapping("/api/login")
+	public ResponseEntity<LoginVO> validelogin (@RequestBody User user,HttpServletRequest request){ 
+		
+		Optional<com.main.entity.User> savedUser = userRepository.findById(user.getUserid());
+		String hashedPassword = passwordHelper.hashPassword(user.getPassword());
+		if(savedUser.isPresent() && hashedPassword.equals(savedUser.get().getPassword())){
+			request.getSession().setAttribute(ApplicationConstants.USER_INFO, savedUser.get());
+			return new ResponseEntity<>(HttpStatus.OK);	
+		}else{
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		
 		
 	}
 	
@@ -119,6 +98,5 @@ public class LoginController {
 		login.setPassword(hashedPassword);
 		loginRepository.save(login);
 		return new ResponseEntity<>(user,HttpStatus.OK);
-		
 	}
 }

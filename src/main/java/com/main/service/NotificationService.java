@@ -3,7 +3,9 @@
  */
 package com.main.service;
 import java.io.StringWriter;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.mail.BodyPart;
 import javax.mail.Message;
@@ -16,12 +18,15 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.springframework.stereotype.Service;
+
+import com.main.entity.User;
 /**
  * @author admin
  *
@@ -29,8 +34,24 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class NotificationService {
+	
 	 private static VelocityEngine velocityEngine= new VelocityEngine();
-public void sendNotification(Mail mail) {
+
+	 public Mail buildEmailContent(User user,String password){
+		 Mail mail = new Mail();
+		 mail.setMailFrom("admin@MereHumsafar.com");
+		 mail.setMailTo(user.getUsername());
+		 mail.setMailSubject("Subject - Welcome to MereHumSafar");
+			mail.setTemplateName("login.vm");
+			mail.setMailPassWord("Unlock@66");
+			Map<String, Object> velocityContext = new HashedMap();
+			  velocityContext.put("username", user.getUsername());
+			  velocityContext.put("password", password);
+			  mail.setValues(velocityContext);
+		 return mail;
+	 }
+	 
+	 public void sendNotification(Mail mail) {
 	  
 	  velocityEngine.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
 	  velocityEngine.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());

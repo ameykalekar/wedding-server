@@ -44,76 +44,56 @@ public class UserController {
 	public List<User> get() {
 		return userRepository.findAll();
 	}
-	
-	@RequestMapping("/api/GetUsersByCompanyId")
-	public List<User> getUsersByCompanyId(HttpServletRequest request){
-		LoginVO loginvo = (LoginVO) request.getSession().getAttribute(ApplicationConstants.USER_INFO);
-		return userRepository.findByCompanyidAndType(loginvo.getCompanyId(), "FR");
-	}
-	
+
 	@RequestMapping("/api/GetUser")
 	public User getUser(String username) {
 		return userRepository.findById(username).get();
 	}
 
+	public Boolean isUserPresent(String username) {
 
-	public Boolean isUserPresent(String username)
-	{
-		
-		
-		if(userRepository.existsById(username))
-		{
-		return true;
-		}else
-		{
+		if (userRepository.existsById(username)) {
+			return true;
+		} else {
 			return false;
 		}
-		
-		
 
 	}
-	
-	@PostMapping("/api/SaveUser")
+
+	/*@PostMapping("/api/SaveUser")
 	public ResponseEntity<User> save(@RequestBody User user) {
-		
-		
-		if(isUserPresent(user.getUsername()))
-		{
+
+		if (isUserPresent(user.getUsername())) {
 			return new ResponseEntity<User>(user, HttpStatus.FOUND);
-		}else
-		{
-	
-		user.setActive("Y");
-		User t = userRepository.save(user);
+		} else {
 
-		String password = passwordhelper.randomAlphaNumeric(6);
-		
-		System.out.println("Geenerate Password" +password);
+			user.setActive("Y");
+			User t = userRepository.save(user);
 
-		Login login = new Login(user.getUsername(), passwordhelper.hashPassword(password));
-		logincontroller.save(login);
-		
-		System.out.println("sending email");
-		Mail mail = new Mail();
-		mail.setMailFrom("fieldservedevpune@gmail.com");
-		mail.setMailTo(user.getUsername());
-		mail.setMailSubject("Subject - Welcome to FieldServe");
-		mail.setTemplateName("login.vm");
-		mail.setMailPassWord("Unlock@66");
-		Map<String, Object> velocityContext = new HashedMap();
-		
-		
-		  velocityContext.put("firstName", user.getFirstname());
-		  velocityContext.put("lastName", user.getLastname());
-		  velocityContext.put("username", user.getUsername());
-		  velocityContext.put("password", password);
-		  mail.setValues(velocityContext);
- //notificationservice.sendNotification(mail);
-		password = null;
-		return new ResponseEntity<User>(t, HttpStatus.OK);
-		}
-		
+			String password = passwordhelper.randomAlphaNumeric(6);
 
-	}
+			System.out.println("Geenerate Password" + password);
+
+			Login login = new Login(user.getUsername(), passwordhelper.hashPassword(password));
+			logincontroller.save(login);
+
+			System.out.println("sending email");
+			Mail mail = new Mail();
+			mail.setMailFrom("fieldservedevpune@gmail.com");
+			mail.setMailTo(user.getUsername());
+			mail.setMailSubject("Subject - Welcome to FieldServe");
+			mail.setTemplateName("login.vm");
+			mail.setMailPassWord("Unlock@66");
+			Map<String, Object> velocityContext = new HashedMap();
+
+			velocityContext.put("username", user.getUsername());
+			velocityContext.put("password", password);
+			mail.setValues(velocityContext);
+			// notificationservice.sendNotification(mail);
+			password = null;
+			return new ResponseEntity<User>(t, HttpStatus.OK);
+		}*/
+
+	//}
 
 }

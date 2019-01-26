@@ -12,8 +12,8 @@ public class ProfileVo {
 	private String religion;
 	private String caste;
 	private String marritalStatus;
-	private String heightFeet;
-	private String heightInch;
+	private String heightFeet="0";
+	private String heightInch="0";
 	private String bodyType;
 	private String complexion;
 	private String challenged;

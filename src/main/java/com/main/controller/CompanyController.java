@@ -43,16 +43,9 @@ public class CompanyController {
 		
 		User user= new User();
 		user.setActive("Y");
-		user.setAddress(company.getAddress());
-		user.setCompanyid(new Long(t.getCompanyid()));
-		user.setMobilenumber(t.getMobilenumber());
 		user.setType("admin");
 		user.setUsername(t.getEmailid());
-		user.setFirstname(t.getOwnername());
-		
-		usercontroller.save(user);
-		
-		
+		//usercontroller.save(user);
 		return new ResponseEntity<Company>(t, HttpStatus.OK);
 		}
 		else {

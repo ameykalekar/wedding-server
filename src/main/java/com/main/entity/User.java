@@ -13,32 +13,15 @@ public class User {
 	@Column(name="USERNAME", unique=true,length=100)
 	protected String username;
 	
-	@Column(name="FIRSTNAME")
-	protected String firstname;
-	
-	@Column(name="LASTNAME")
-	protected String lastname;
-	
-	@Column(name="ADDRESS")
-	protected String address;
-	
-	@Column(name="MOBILENO")
-	protected String mobilenumber;
+	@Column(name="PASSWORD",nullable=false)
+	protected String password;
 	
 	@Column(name="TYPE")
 	protected String type;
 	
-	
 	@Column(name="ACTIVE")
 	protected String active;
 	
-	@Column(name="COMPANYID")
-	protected Long companyid;
-	
-	public User(String string, String string2, String string3, String string4, String string5, String string6, String string7, String string8){
-		super();
-		
-	}
 	
 	public User(){
 		super();
@@ -54,38 +37,7 @@ public class User {
 		this.username = username;
 	}
 
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getMobilenumber() {
-		return mobilenumber;
-	}
-
-	public void setMobilenumber(String mobilenumber) {
-		this.mobilenumber = mobilenumber;
-	}
-
+	
 	public String getType() {
 		return type;
 	}
@@ -102,12 +54,15 @@ public class User {
 		this.active = active;
 	}
 
-	public Long getCompanyid() {
-		return companyid;
+
+	public String getPassword() {
+		return password;
 	}
 
-	public void setCompanyid(Long companyid) {
-		this.companyid = companyid;
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
+	
 }

@@ -42,26 +42,17 @@ public class SesssionFilter implements Filter{
 				|| httprequest.getRequestURI().contains("profile")
 				|| httprequest.getRequestURI().contains("getProfileImage")
 				||httprequest.getRequestURI().contains("search")
-				||httprequest.getRequestURI().contains("gethash")){
+				||httprequest.getRequestURI().contains("gethash")
+				||httprequest.getRequestURI().contains("states")){
 			chain.doFilter(httprequest, response);
 			return;
 		}
 		
 		if(httprequest.getSession().getAttribute(ApplicationConstants.USER_INFO)!=null){
-			String role = ((LoginVO)httprequest.getSession().getAttribute(ApplicationConstants.USER_INFO)).getRole();
-			String functions = httprequest.getRequestURL().substring(httprequest.getRequestURL().lastIndexOf("/")+1);
-			System.out.println(roleFunctionService.isAuthorized(role,functions.toLowerCase()));
-			System.out.println(functions);
-			if(roleFunctionService.isAuthorized(role,functions.toLowerCase()))
-			{
 				chain.doFilter(httprequest, response);
 			}else{
 				 httpresponse.sendError(HttpServletResponse.SC_FORBIDDEN);
 			}
-		}else{
-			 httpresponse.sendError(HttpServletResponse.SC_FORBIDDEN);
-		}
-		
 		
 	}
 

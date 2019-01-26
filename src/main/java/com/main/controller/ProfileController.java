@@ -5,11 +5,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.function.Function;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.main.entity.ProfileEntity;
 import com.main.app.constants.ApplicationConstants;
 import com.main.entity.Login;
+import com.main.entity.ProfileEntity;
+import com.main.entity.User;
+import com.main.repository.UserRepository;
+import com.main.service.NotificationService;
+import com.main.service.PasswordHelper;
 import com.main.service.ProfileService;
 import com.main.vo.PaymentRequest;
 import com.main.vo.ProfileVo;
@@ -38,6 +42,14 @@ public class ProfileController {
 	@Autowired
 	private ProfileService profileService;
 	
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired 
+	private NotificationService notificationService;
+
+	@Autowired
+	PasswordHelper passwordhelper;
 	
 	@RequestMapping("/api/viewprofile/{id}")
 	public ResponseEntity<ProfileVo> getViewProfile(@PathVariable("id") String id,HttpServletRequest request){
@@ -49,8 +61,8 @@ public class ProfileController {
 	@RequestMapping("/api/profile/{id}")
 	public ResponseEntity<ProfileVo> getProfile(@PathVariable("id") String id,HttpServletRequest request){
 		
-		Login login = getUserLoginFromSession(request);
-		if(login!=null && login.getUserid().equals(id)){
+		User login = getUserLoginFromSession(request);
+		if(login!=null && login.getUsername()	.equals(id)){
 		return new ResponseEntity<ProfileVo>(profileService.getProfile(id),HttpStatus.OK);
 		}else{
 			//TODO: TO pass view to show to other people.
@@ -77,12 +89,12 @@ public class ProfileController {
 			
 	}
 
-	private Login getUserLoginFromSession(HttpServletRequest request) {
+	private User getUserLoginFromSession(HttpServletRequest request) {
 		Function<HttpSession, Optional<HttpSession>> optionalSession = (session) ->  session!=null ? Optional.of(session) : Optional.empty();
 				
-		 Login login = optionalSession.andThen((optSession) -> {
+		 User login = optionalSession.andThen((optSession) -> {
 			if(optSession.get().getAttribute(ApplicationConstants.USER_INFO)!=null){
-				return (Login)optSession.get().getAttribute(ApplicationConstants.USER_INFO);
+				return (User)optSession.get().getAttribute(ApplicationConstants.USER_INFO);
 			} else{
 				return null;
 			}
@@ -92,9 +104,9 @@ public class ProfileController {
 	
 	@PostMapping("/api/profile")
 	public ResponseEntity<ProfileVo> insertProfile(@RequestBody ProfileVo profileVo,HttpServletRequest request){
-		Login login = getUserLoginFromSession(request);
+		User login = getUserLoginFromSession(request);
 		
-		if(login!=null && login.getUserid().equals(profileVo.getId())){
+		if(login!=null && login.getUsername().equals(profileVo.getId())){
 		System.out.println(profileVo);
 		profileService.insertProfile(profileVo);
 		return new ResponseEntity<ProfileVo>(profileVo,HttpStatus.OK);
@@ -102,6 +114,47 @@ public class ProfileController {
 			return new ResponseEntity<ProfileVo>(profileVo,HttpStatus.BAD_REQUEST);	
 		}
 	}
+	
+	@PostMapping("/api/simple/profile")
+	public ResponseEntity<ProfileVo> insertSimpleProfile(@RequestBody ProfileVo profileVo){
+		ProfileVo vo = profileService.insertProfile(profileVo);
+		
+		User user= new User();
+		user.setUsername(vo.getId()+"");
+		user.setActive(true+"");
+		user.setType("user");
+		
+		String password = getRandomPassword();
+		System.out.println(user.getUsername() + "@" + password);
+		user.setPassword(passwordhelper.hashPassword(password));
+		
+		User savedUser = userRepository.save(user);
+		
+		//notificationService.sendNotification(notificationService.buildEmailContent(savedUser, password));
+		
+		return new ResponseEntity<ProfileVo>(profileVo,HttpStatus.OK);
+	}
+	
+	private String getRandomPassword() {
+		  
+	    int leftLimit = 97; // letter 'a'
+	    int rightLimit = 122; // letter 'z'
+	    int targetStringLength = 10;
+	    Random random = new Random();
+	    StringBuilder buffer = new StringBuilder(targetStringLength);
+	    for (int i = 0; i < targetStringLength; i++) {
+	        int randomLimitedInt = leftLimit + (int) 
+	          (random.nextFloat() * (rightLimit - leftLimit + 1));
+	        buffer.append((char) randomLimitedInt);
+	    }
+	    String generatedString = buffer.toString();
+	 
+	    return (generatedString);
+	}
+	
+	
+	
+	
 
 	@PostMapping("/api/search")
 	public ResponseEntity<List<ProfileEntity>> searchProfile(@RequestBody ProfileVo profileVo){

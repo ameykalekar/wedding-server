@@ -36,7 +36,7 @@ public class ProfileService {
 		return new ProfileVo().getVo(entity);
 	}
 
-	public void insertProfile(ProfileVo profileVo) {
+	public ProfileVo insertProfile(ProfileVo profileVo) {
 
 		ProfileEntity entity = repository.save(profileVo.getEntity());
 		try {
@@ -56,7 +56,7 @@ public class ProfileService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		return new ProfileVo().getVo(entity);
 	}
 
 	public List<ProfileEntity> searchProfile(ProfileVo profileVo) {

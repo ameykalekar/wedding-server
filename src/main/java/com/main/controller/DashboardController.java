@@ -50,16 +50,12 @@ public class DashboardController {
 			 openTickets = ticketRepository.countByCompanyidAndStatus(user.getCompanyId(), TicketStatus.SUBMITTED.toString());
 			 totalTickets = ticketRepository.countByCompanyid(user.getCompanyId());
 			 inProgressTickets = ticketRepository.countByCompanyidAndStatus(user.getCompanyId(), TicketStatus.INPROGRESS.toString());
-			 countCustomers = userRepository.countByCompanyidAndType(user.getCompanyId(),"cust");
-			 countUsers = userRepository.countByCompanyid(user.getCompanyId());
 		
 			
 		} else if(utility.nonNUll.and(utility.isCust).test(user)){
 			 openTickets =ticketRepository.countByCreatedByAndCompanyidAndStatus(user.getUsername(),user.getCompanyId(), TicketStatus.SUBMITTED.toString());
 			 totalTickets = ticketRepository.countByCreatedByAndCompanyid(user.getUsername(),user.getCompanyId());
 			 inProgressTickets = ticketRepository.countByCreatedByAndCompanyidAndStatus(user.getUsername(),user.getCompanyId(), TicketStatus.INPROGRESS.toString());
-			 countCustomers = userRepository.countByCompanyidAndType(user.getCompanyId(),"cust");
-			 countUsers = userRepository.countByCompanyid(user.getCompanyId());
 		
 		
 
@@ -67,8 +63,6 @@ public class DashboardController {
 			 openTickets =ticketRepository.countByAssignedToAndCompanyidAndStatus(user.getUsername(),user.getCompanyId(), TicketStatus.SUBMITTED.toString());
 			 totalTickets = ticketRepository.countByAssignedToAndCompanyid(user.getUsername(),user.getCompanyId());
 			 inProgressTickets = ticketRepository.countByAssignedToAndCompanyidAndStatus(user.getUsername(),user.getCompanyId(), TicketStatus.INPROGRESS.toString());
-			 countCustomers = userRepository.countByCompanyidAndType(user.getCompanyId(),"cust");
-			 countUsers = userRepository.countByCompanyid(user.getCompanyId());
 			
 			
 
@@ -77,7 +71,6 @@ public class DashboardController {
 			 openTickets = ticketRepository.countOpenTickets();
 			 totalTickets = ticketRepository.countTickets();
 			 inProgressTickets = ticketRepository.countInProgressTickets();
-			 countCustomers = userRepository.countByType("cust");
 			 countUsers = userRepository.countOfUsers();
 
 		
@@ -85,9 +78,7 @@ public class DashboardController {
 		}
 		status.setOpenTickets(openTickets);
 		status.setTotalTickets(totalTickets);
-		status.setCustomerCount(countCustomers);
 		status.setTicketsInProgress(inProgressTickets);
-		status.setTotalUserCount(countUsers);
 		return status;
 	}
 
