@@ -10,9 +10,9 @@ public class PaymentRequest {
    private String  email;
    private String phone;
    private String   productinfo;
-   private String  surl= "https://sucess-url.in";
-   private String  furl= "https://fail-url.in";
-   private String mode= "dropout";
+   private String  surl= "http://localhost:4200/payment";
+   private String  furl= "http://localhost:4200/payment";
+   //private String mode= "dropout";
 /**
  * @return the key
  */
@@ -133,19 +133,7 @@ public String getFurl() {
 public void setFurl(String furl) {
 	this.furl = furl;
 }
-/**
- * @return the mode
- */
-public String getMode() {
-	return mode;
-}
-/**
- * @param mode the mode to set
- */
-public void setMode(String mode) {
-	this.mode = mode;
-}
-   
+
    
    
 
