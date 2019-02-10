@@ -43,7 +43,7 @@ public class ProfileRepositoryImpl implements ProfileRepositoryCustom {
 	    }
 	    
 	    if (StringUtils.isNotBlank(profileVo.getMarritalStatus())) {
-	        predicates.add(cb.equal(book.get("maritastatus"), profileVo.getMarritalStatus()));
+	        predicates.add(cb.equal(book.get("marritalStatus"), profileVo.getMarritalStatus()));
 	    }
 	    
 	    if (StringUtils.isNotBlank(profileVo.getHighestDegree())) {
