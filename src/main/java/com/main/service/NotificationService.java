@@ -39,7 +39,7 @@ public class NotificationService {
 
 	 public Mail buildEmailContent(User user,String password){
 		 Mail mail = new Mail();
-		 mail.setMailFrom("admin@MereHumsafar.com");
+		 mail.setMailFrom("fieldservedevpune@gmail.com");
 		 mail.setMailTo(user.getUsername());
 		 mail.setMailSubject("Subject - Welcome to MereHumSafar");
 			mail.setTemplateName("login.vm");
@@ -108,15 +108,17 @@ public class NotificationService {
 		
 	}
 
+	 
+
 	
-/*
+
 
 		public static void main(String[] args) {
 
 			
 			 Mail mail = new Mail();
 			  mail.setMailFrom("from@gmail.com");
-			  mail.setMailTo("to@gmail.com");
+			  mail.setMailTo("sagarthakare1@gmail.com");
 			  mail.setMailSubject("Subject - Send Email using Spring Velocity Template");
 			  mail.setTemplateName("login.vm");
 			  
@@ -138,8 +140,9 @@ public class NotificationService {
 			  StringWriter stringWriter = new StringWriter();
 			  
 			  template.merge(velocityContext, stringWriter);
-			final String username = "letsmakemymoney@gmail.com";
+			final String username = "fieldservedevpune@gmail.com";
 			final String password = "Unlock@66";
+			
 
 			Properties props = new Properties();
 			props.put("mail.smtp.auth", "true");
@@ -157,7 +160,7 @@ public class NotificationService {
 			try {
 
 				Message message = new MimeMessage(session);
-				message.setFrom(new InternetAddress("letsmakemymoney@gmail.com"));
+				message.setFrom(new InternetAddress("test"));
 				message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse("sagarthakare1@gmail.com"));
 				message.setSubject("Testing Subject");
@@ -173,7 +176,7 @@ public class NotificationService {
 			} catch (MessagingException e) {
 				throw new RuntimeException(e);
 			}
-		}*/
+		}
 	}
 
 

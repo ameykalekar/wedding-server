@@ -130,7 +130,7 @@ public class ProfileController {
 		
 		User savedUser = userRepository.save(user);
 		
-		//notificationService.sendNotification(notificationService.buildEmailContent(savedUser, password));
+		notificationService.sendNotification(notificationService.buildEmailContent(savedUser, password));
 		
 		return new ResponseEntity<ProfileVo>(profileVo,HttpStatus.OK);
 	}
