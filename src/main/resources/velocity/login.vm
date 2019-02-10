@@ -6,7 +6,8 @@
           <span class="card-title">Welcome to Mere HumSafar</span>
           <p>Dear ${firstName} ${lastName}</p>
         <h3>      
-         Your Username: ${username}</br>
+         Your Username: ${username}
+         </br>
 		Your Password: ${password}</br>
 		</h3>
 		Thanks

@@ -32,6 +32,7 @@ import com.main.repository.UserRepository;
 import com.main.service.NotificationService;
 import com.main.service.PasswordHelper;
 import com.main.service.ProfileService;
+import com.main.service.SmsService;
 import com.main.vo.PaymentRequest;
 import com.main.vo.ProfileVo;
 
@@ -47,6 +48,9 @@ public class ProfileController {
 
 	@Autowired 
 	private NotificationService notificationService;
+	
+	@Autowired 
+	private SmsService smsService;
 
 	@Autowired
 	PasswordHelper passwordhelper;
@@ -130,7 +134,8 @@ public class ProfileController {
 		
 		User savedUser = userRepository.save(user);
 		
-		notificationService.sendNotification(notificationService.buildEmailContent(savedUser, password));
+		notificationService.sendNotification(notificationService.buildEmailContent(savedUser, password,profileVo.getFirstName(),profileVo.getLastName()));
+		smsService.sendSMS(profileVo.getContactNumber(), "Your Username"+vo.getId()+"and Password is" +user.getPassword() , "promotional");
 		
 		return new ResponseEntity<ProfileVo>(profileVo,HttpStatus.OK);
 	}

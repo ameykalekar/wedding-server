@@ -25,7 +25,7 @@ public class SmsService {
 					senderID="ADJTNT";
 					messagetye="2";
 				}
-		String url="http://apps.smslane.com/vendorsms/pushsms.aspx?apikey=EAAE104E-1092-4E94-A554-EF5416DC2D40&sid="+senderID+"&fl=0"+"&msisdn="+contactno+"&msg=" +messageTxt;
+		String url="http://apps.smslane.com/vendorsms/pushsms.aspx?apikey=EAAE104E-1092-4E94-A554-EF5416DC2D40&sid="+senderID+"&fl=0"+"&msisdn="+"91"+contactno+"&msg=" +messageTxt;
 		 String response=restTemplate.getForObject(url, String.class);
 	System.out.println(response);
 	return true;
@@ -34,7 +34,7 @@ public class SmsService {
 	
 	public static void main(String[] args) {
 		SmsService service = new SmsService();
-		service.sendSMS("918888606658", "Welcome to maere hamsafar","promotional");
+		service.sendSMS("8888606658", "Welcome to maere hamsafar","promotional");
 	}
 	
 	

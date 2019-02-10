@@ -37,7 +37,7 @@ public class NotificationService {
 	
 	 private static VelocityEngine velocityEngine= new VelocityEngine();
 
-	 public Mail buildEmailContent(User user,String password){
+	 public Mail buildEmailContent(User user,String password,String firstName,String lastName ){
 		 Mail mail = new Mail();
 		 mail.setMailFrom("fieldservedevpune@gmail.com");
 		 mail.setMailTo(user.getUsername());
@@ -47,6 +47,8 @@ public class NotificationService {
 			Map<String, Object> velocityContext = new HashedMap();
 			  velocityContext.put("username", user.getUsername());
 			  velocityContext.put("password", password);
+			  velocityContext.put("firstName", firstName);
+			  velocityContext.put("lastName", lastName);
 			  mail.setValues(velocityContext);
 		 return mail;
 	 }
