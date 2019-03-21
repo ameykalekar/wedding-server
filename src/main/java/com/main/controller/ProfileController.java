@@ -8,9 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
-import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -25,12 +23,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.main.app.constants.ApplicationConstants;
 import com.main.entity.DesiredProfile;
+import com.main.entity.PaymentResponse;
 import com.main.entity.ProfileEntity;
 import com.main.entity.ProfileVisibility;
 import com.main.entity.User;
@@ -39,7 +37,9 @@ import com.main.repository.ProfileVisibilityRepository;
 import com.main.repository.UserRepository;
 import com.main.service.NotificationService;
 import com.main.service.PasswordHelper;
+import com.main.service.PaymentService;
 import com.main.service.ProfileService;
+import com.main.service.SmsService;
 import com.main.vo.DesiredProfileVo;
 import com.main.vo.PaymentRequest;
 import com.main.vo.ProfileVo;
@@ -48,6 +48,8 @@ import com.main.vo.ProfileVo;
 public class ProfileController {
 
 	@Autowired
+	PaymentService paymentService;
+	@Autowired
 	private ProfileService profileService;
 
 	@Autowired
@@ -55,6 +57,10 @@ public class ProfileController {
 
 	@Autowired
 	private NotificationService notificationService;
+
+
+	@Autowired
+	private SmsService smsService;
 
 	@Autowired
 	PasswordHelper passwordhelper;
@@ -153,6 +159,12 @@ public class ProfileController {
 
 		return new ResponseEntity<ProfileVo>(profileVo, HttpStatus.OK);
 	}
+	
+	@PostMapping("/api/paymentresponse")
+	public ResponseEntity<PaymentResponse> insertPaymentResponse(@RequestBody PaymentResponse paymentResponse) {
+		paymentService.insertPayment(paymentResponse);
+		return new ResponseEntity<PaymentResponse>(paymentResponse, HttpStatus.OK);
+	}
 
 	private String getRandomPassword() {
 
@@ -171,29 +183,10 @@ public class ProfileController {
 	}
 
 	@PostMapping("/api/search")
-	public ResponseEntity<List<ProfileVo>> searchProfile(@RequestBody ProfileVo profileVo, HttpServletRequest request) {
+	public ResponseEntity<List<ProfileEntity>> searchProfile(@RequestBody ProfileVo profileVo) {
 		System.out.println(profileVo);
-		User login = getUserLoginFromSession(request);
 		List<ProfileEntity> profiles = profileService.searchProfile(profileVo);
-		List<ProfileVo> profileVoLst = null;
-		if (login == null || login.getPaymentExpiryDte() == null
-				|| login.getPaymentExpiryDte().compareTo(new Date()) < 0) {
-			profileVoLst = profiles.stream().map(profileEntity -> {
-				ProfileVo vo = new ProfileVo();
-				vo = vo.getVo(profileEntity);
-				vo.maskProfile();
-				return vo;
-			}).collect(Collectors.toList());
-		} else {
-			profileVoLst = profiles.stream().map(profileEntity -> {
-				ProfileVo vo = new ProfileVo();
-				vo = vo.getVo(profileEntity);
-
-				return vo;
-			}).collect(Collectors.toList());
-		}
-
-		return new ResponseEntity<List<ProfileVo>>(profileVoLst, HttpStatus.OK);
+		return new ResponseEntity<List<ProfileEntity>>(profiles, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/api/gethash")
@@ -205,7 +198,7 @@ public class ProfileController {
 		return new ResponseEntity<PaymentRequest>(p, HttpStatus.OK);
 
 	}
-	
+
 	
 	@Autowired 
 	DesireProfileRepository desiredProfileRepo;
