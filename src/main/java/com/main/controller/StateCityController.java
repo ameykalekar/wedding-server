@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -125,5 +126,11 @@ public class StateCityController {
 	  return new ResponseEntity<List>(this.cityByState.get(state),HttpStatus.OK);
 	  }
 	 
+	  
+	  @GetMapping("/api/city/cities") 
+	  public ResponseEntity<List<String>> getAllCities(){
+		  List<StateCity> stateCity = this.cityByState.entrySet().stream().flatMap(x->x.getValue().stream()).collect(Collectors.toList());
+		   return new ResponseEntity<List<String>>(stateCity.stream().map(x->x.name).collect(Collectors.toList()),HttpStatus.OK);
+	  }
 
 }

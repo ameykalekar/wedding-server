@@ -1,5 +1,7 @@
 package com.main.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,6 +20,9 @@ public class User {
 	
 	@Column(name="TYPE")
 	protected String type;
+	
+	@Column(name="PAYMENT_EXPIRY")
+	protected Date paymentExpiryDte;
 	
 	@Column(name="ACTIVE")
 	protected String active;
@@ -62,6 +67,16 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+
+	public Date getPaymentExpiryDte() {
+		return paymentExpiryDte;
+	}
+
+
+	public void setPaymentExpiryDte(Date paymentExpiryDte) {
+		this.paymentExpiryDte = paymentExpiryDte;
 	}
 
 	

@@ -4,6 +4,18 @@ import com.main.entity.ProfileEntity;
 
 public class ProfileVo {
 
+	
+	
+	public void maskProfile(){
+		this.firstName = "xxxx";
+		this.lastName ="xxxx";
+		this.companyName = "xxxx";
+		this.motherName = "xxxx";
+		this.fatherName = "xxxx";
+		this.contactNumber = "xxxx";
+		this.homeAddress ="xxxx";
+		this.email ="xxx@xx.com";
+	}
 	private long id;
 	private String firstName;
 	private String lastName;
@@ -48,6 +60,9 @@ public class ProfileVo {
 	private String aboutMe;
 	
 	private String picture1;
+	private String picture2;
+	private String picture3;
+	
 	private String email;
 	private String gender;
 	private Integer age;
@@ -499,6 +514,18 @@ public class ProfileVo {
 	 */
 	public void setMaxLimit(Integer end) {
 		this.maxLimit = end;
+	}
+	public String getPicture2() {
+		return picture2;
+	}
+	public void setPicture2(String picture2) {
+		this.picture2 = picture2;
+	}
+	public String getPicture3() {
+		return picture3;
+	}
+	public void setPicture3(String picture3) {
+		this.picture3 = picture3;
 	}
 	
 	

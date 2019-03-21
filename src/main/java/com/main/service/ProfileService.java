@@ -52,6 +52,33 @@ public class ProfileService {
 
 				imageOutFile.close();
 			}
+
+			if (profileVo.getPicture2() != null) {
+
+				File directory = new File(String.valueOf("C:\\Users\\amayk\\images\\" + entity.getId()));
+				if (!directory.exists())
+					directory.mkdirs();
+
+				FileOutputStream imageOutFile = new FileOutputStream(
+						"C:\\Users\\amayk\\images\\" + entity.getId() + "\\2.jpg");
+				imageOutFile.write(Base64.decodeBase64(profileVo.getPicture2()));
+
+				imageOutFile.close();
+			}	
+			
+			if (profileVo.getPicture3() != null) {
+
+				File directory = new File(String.valueOf("C:\\Users\\amayk\\images\\" + entity.getId()));
+				if (!directory.exists())
+					directory.mkdirs();
+
+				FileOutputStream imageOutFile = new FileOutputStream(
+						"C:\\Users\\amayk\\images\\" + entity.getId() + "\\3.jpg");
+				imageOutFile.write(Base64.decodeBase64(profileVo.getPicture3()));
+
+				imageOutFile.close();
+			}	
+		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
