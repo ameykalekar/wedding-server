@@ -1,0 +1,73 @@
+[
+    {
+        "id": "1",
+        "name": "Agarwal",
+        "religion": "Hindu"
+    },
+    {
+        "id": "2",
+        "name": "Arora",
+        "religion": "Hindu"
+    },
+    {
+        "id": "3",
+        "name": "Baniya",
+        "religion": "Hindu"
+    },
+    {
+        "id": "4",
+        "name": "Ahmedabad",
+        "religion": "Jain"
+    },
+    {
+        "id": "5",
+        "name": "Hyderabad",
+        "religion": "Jain"
+    },
+    {
+        "id": "6",
+        "name": "Chennai",
+        "religion": "Jain"
+    },
+    {
+        "id": "7",
+        "name": "Kolkata",
+        "religion": "Muslim"
+    },
+    {
+        "id": "8",
+        "name": "Pune",
+        "religion": "Muslim"
+    },
+    {
+        "id": "9",
+        "name": "Jaipur",
+        "religion": "Parsi"
+    },
+    {
+        "id": "10",
+        "name": "Surat",
+        "religion": "Sikh"
+    },
+    {
+        "id": "11",
+        "name": "Sindhi",
+        "religion": "Sindhi"
+    },
+    {
+        "id": "12",
+        "name": "Christian",
+        "religion": "Christian"
+    },
+    {
+        "id": "13",
+        "name": "Buddhist",
+        "religion": "Buddhist"
+    },
+    {
+        "id": "14",
+        "name": "Buddhist",
+        "religion": "Buddhist"
+    }
+    
+]

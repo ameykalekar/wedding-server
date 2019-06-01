@@ -43,7 +43,8 @@ public class SesssionFilter implements Filter{
 				|| httprequest.getRequestURI().contains("getProfileImage")
 				||httprequest.getRequestURI().contains("search")
 				||httprequest.getRequestURI().contains("gethash")
-				||httprequest.getRequestURI().contains("states")){
+				||httprequest.getRequestURI().contains("states")
+				||httprequest.getRequestURI().contains("religions")){
 			chain.doFilter(httprequest, response);
 			return;
 		}
