@@ -140,12 +140,30 @@ public class ProfileController {
 
 	@PostMapping("/api/simple/profile")
 	public ResponseEntity<ProfileVo> insertSimpleProfile(@RequestBody ProfileVo profileVo) {
+		
+		if(profileVo.getEmail().isEmpty())
+		{
+			profileVo.setUserName(profileVo.getContactNumber());
+		}else
+		{
+			profileVo.setUserName(profileVo.getEmail());
+		}
 		ProfileVo vo = profileService.insertProfile(profileVo);
 
+		
+		generateUser(profileVo.getUserName(), "user");
+		
+		return new ResponseEntity<ProfileVo>(profileVo, HttpStatus.OK);
+	}
+	
+	
+	private void generateUser(String userName,String type )
+	{
 		User user = new User();
-		user.setUsername(vo.getId() + "");
+		
+		user.setUsername(userName);
 		user.setActive(true + "");
-		user.setType("user");
+		user.setType(type);
 
 		String password = getRandomPassword();
 		System.out.println(user.getUsername() + "@" + password);
@@ -157,7 +175,6 @@ public class ProfileController {
 		// notificationService.sendNotification(notificationService.buildEmailContent(savedUser,
 		// password));
 
-		return new ResponseEntity<ProfileVo>(profileVo, HttpStatus.OK);
 	}
 	
 	@PostMapping("/api/paymentresponse")

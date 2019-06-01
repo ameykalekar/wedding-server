@@ -17,6 +17,7 @@ public class ProfileVo {
 		this.email ="xxx@xx.com";
 	}
 	private long id;
+	private String userName;
 	private String firstName;
 	private String lastName;
 	private String dateOfBirth;
@@ -453,6 +454,11 @@ public class ProfileVo {
 		entity.setGender(gender);
 		entity.setId(id);
 		entity.setAge(age);
+		entity.setUsername(userName);
+		
+		
+		
+	
 		return entity;
 	}
 	public String getContactNumber() {
@@ -526,6 +532,18 @@ public class ProfileVo {
 	}
 	public void setPicture3(String picture3) {
 		this.picture3 = picture3;
+	}
+	/**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 	

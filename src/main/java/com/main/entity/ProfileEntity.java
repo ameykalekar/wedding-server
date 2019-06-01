@@ -13,12 +13,15 @@ import com.main.vo.ProfileVo;
 
 @Entity
 @Table(name="PROFILE")
-public class ProfileEntity {
+public class ProfileEntity extends AuditModel{
 	
 	@Id
 	@Column(name="ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public long id;
+	
+	@Column(length=100)
+	private String username;
 
 	@Column(length=100)
 	private String firstName;
@@ -509,6 +512,20 @@ public class ProfileEntity {
 	 */
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+
+	/**
+	 * @return the username
+	 */
+	public String getUsername() {
+		return username;
+	}
+
+	/**
+	 * @param username the username to set
+	 */
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	
