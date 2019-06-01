@@ -18,6 +18,10 @@ public class PaymentResponse extends AuditModel {
 	@Column(name = "ID")
 	protected Integer id;
 
+	
+	@Column(name = "profileid")
+	protected String profileid;
+	
 	@Column(name = "message")
 	protected String message;
 

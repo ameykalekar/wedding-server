@@ -11,7 +11,7 @@ public class PasswordHelper {
 	public static final String SALT = "SDSADASSADO20432JLKDMNN0W0904393012ASDSAD";
 	private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	public static void main(String args[]){
-		System.out.println(new PasswordHelper().hashPassword("user1"));
+		System.out.println(new PasswordHelper().hashPassword("123"));
 		
 	}
 	
