@@ -141,19 +141,25 @@ public class ProfileController {
 	@PostMapping("/api/simple/profile")
 	public ResponseEntity<ProfileVo> insertSimpleProfile(@RequestBody ProfileVo profileVo) {
 		
-		if(profileVo.getEmail().isEmpty())
-		{
-			profileVo.setUserName(profileVo.getContactNumber());
-		}else
-		{
-			profileVo.setUserName(profileVo.getEmail());
-		}
-		ProfileVo vo = profileService.insertProfile(profileVo);
+		ProfileVo vo = profileService.findByEmail(profileVo.getEmail());
+		
+		if(vo==null){
+			if(profileVo.getEmail().isEmpty())
+			{
+				profileVo.setUserName(profileVo.getContactNumber());
+			}else
+			{
+				profileVo.setUserName(profileVo.getEmail());
+			}
 
-		
-		generateUser(profileVo.getUserName(), "user");
-		
-		return new ResponseEntity<ProfileVo>(profileVo, HttpStatus.OK);
+			vo = profileService.insertProfile(profileVo);
+			generateUser(profileVo.getUserName(), "user");
+
+			return new ResponseEntity<ProfileVo>(profileVo, HttpStatus.OK);
+		}else{
+			ProfileVo vo1= null;
+			return new ResponseEntity<ProfileVo>(vo1, HttpStatus.OK);
+		}
 	}
 	
 	

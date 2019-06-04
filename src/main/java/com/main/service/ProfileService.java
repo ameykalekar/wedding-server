@@ -24,6 +24,13 @@ public class ProfileService {
 
 	private final String salt = "KFSwE2j1";
 
+	
+	public ProfileVo findByEmail(String email){
+		ProfileEntity entity= repository.findByemail(email).orElse(null);
+		
+		return entity!=null? new ProfileVo().getVo(entity):null;
+	}
+	
 	public ProfileVo getProfile(String id) {
 		/*
 		 * ProfileVo profileVo = new ProfileVo();
@@ -147,6 +154,8 @@ public class ProfileService {
 		return paymentRequest;
 
 	}
+	
+
 
 	public boolean empty(String s) {
 		if (s == null || s.trim().equals("")) {

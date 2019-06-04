@@ -1,5 +1,7 @@
 package com.main.vo;
 
+import java.util.Date;
+
 import com.main.entity.ProfileEntity;
 
 public class ProfileVo {
@@ -409,6 +411,8 @@ public class ProfileVo {
 	
 	public ProfileEntity getEntity(){
 		ProfileEntity entity = new ProfileEntity();
+		entity.setCreatedAt(new Date());
+		entity.setUpdatedAt(new Date());;
 		entity.setFirstName(firstName);
 		entity.setLastName(lastName);
 		entity.setAnnualIncome(annualIncome==null || annualIncome.equals("")? 0 : annualIncome);

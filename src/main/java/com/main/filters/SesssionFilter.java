@@ -50,10 +50,13 @@ public class SesssionFilter implements Filter{
 		}
 		
 		if(httprequest.getSession().getAttribute(ApplicationConstants.USER_INFO)!=null){
-				chain.doFilter(httprequest, response);
-			}else{
-				 httpresponse.sendError(HttpServletResponse.SC_FORBIDDEN);
-			}
+			chain.doFilter(httprequest, response);
+		}else if(null==httprequest.getPathInfo()){
+			chain.doFilter(httprequest, response);
+		}
+		else{
+			httpresponse.sendRedirect("/");
+		}
 		
 	}
 
