@@ -31,6 +31,12 @@ public class ProfileService {
 		return entity!=null? new ProfileVo().getVo(entity):null;
 	}
 	
+	public ProfileVo findByUsername(String username){
+		ProfileEntity entity = repository.findByUsername(username).orElse(null);
+		
+		return entity!=null? new ProfileVo().getVo(entity):null;
+	}
+	
 	public ProfileVo getProfile(String id) {
 		/*
 		 * ProfileVo profileVo = new ProfileVo();

@@ -363,6 +363,7 @@ public class ProfileVo {
 		vo.setAnnualIncome(entity.getAnnualIncome());
 		vo.setBodyType(entity.getBodyType());
 		vo.setCaste(entity.getCaste());
+		vo.setUserName(entity.getUsername());
 		vo.setChallenged(entity.getChallenged());
 		vo.setCollegeName(entity.getCollegeName());
 		vo.setCompanyName(entity.getCompanyName());

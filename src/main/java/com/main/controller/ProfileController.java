@@ -81,15 +81,26 @@ public class ProfileController {
 		return new ResponseEntity<ProfileVo>(vo, HttpStatus.OK);
 	}
 
-	@RequestMapping("/api/profile/{id}")
+	@RequestMapping("/api/profile/view/{id}")
 	public ResponseEntity<ProfileVo> getProfile(@PathVariable("id") String id, HttpServletRequest request) {
 
 		User login = getUserLoginFromSession(request);
 		if (login != null && login.getUsername().equals(id)) {
-			return new ResponseEntity<ProfileVo>(profileService.getProfile(id), HttpStatus.OK);
+			return new ResponseEntity<ProfileVo>(profileService.findByUsername(id), HttpStatus.OK);
 		} else {
-			// TODO: TO pass view to show to other people.
 			return new ResponseEntity<ProfileVo>(profileService.getProfile(id), HttpStatus.OK);
+		}
+	}
+	
+	
+	@RequestMapping("/api/profile/{id}")
+	public ResponseEntity<ProfileVo> getLoggedInProfile(@PathVariable("id") String id, HttpServletRequest request) {
+
+		User login = getUserLoginFromSession(request);
+		if (login != null && login.getUsername().equals(id)) {
+			return new ResponseEntity<ProfileVo>(profileService.findByUsername(id), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<ProfileVo>(new ProfileVo(), HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -128,9 +139,10 @@ public class ProfileController {
 	@PostMapping("/api/profile")
 	public ResponseEntity<ProfileVo> insertProfile(@RequestBody ProfileVo profileVo, HttpServletRequest request) {
 		User login = getUserLoginFromSession(request);
-
-		if (login != null && login.getUsername().equals(String.valueOf(profileVo.getId()))) {
+		
+		if (login != null && login.getUsername().equals(String.valueOf(profileVo.getUserName()))) {
 			System.out.println(profileVo);
+			profileVo.setUserName(login.getUsername());
 			profileService.insertProfile(profileVo);
 			return new ResponseEntity<ProfileVo>(profileVo, HttpStatus.OK);
 		} else {

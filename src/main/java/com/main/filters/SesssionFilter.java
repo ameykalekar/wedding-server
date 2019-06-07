@@ -39,7 +39,7 @@ public class SesssionFilter implements Filter{
 		
 		if(httprequest.getRequestURI().contains("login") 
 				|| httprequest.getRequestURI().contains("logout")
-				|| httprequest.getRequestURI().contains("profile")
+				|| httprequest.getRequestURI().contains("profile/view")
 				|| httprequest.getRequestURI().contains("getProfileImage")
 				||httprequest.getRequestURI().contains("search")
 				||httprequest.getRequestURI().contains("gethash")
